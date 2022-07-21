@@ -6,6 +6,7 @@ import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 
 
 export default function Início() {
+  const [number, onChangeNumber] = React.useState(null);
   // constante da modal
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -25,8 +26,8 @@ export default function Início() {
   };
 
   const handleConfirm = (date) => {
-    console.warn(" ", date);
-    hideDatePicker();
+    alert(date);
+    
   };
 
   // constante de selecão de data
@@ -65,14 +66,35 @@ export default function Início() {
               <Text style={styles.dateTitle}>Data da aula</Text>
             </View>
             <View style={styles.containerexibirDate}>
-              <Text style={styles.exibirDate} onPress={showDatePicker}>{handleConfirm}</Text>
+              <Text style={styles.exibirDate} onPress={showDatePicker}>exibir</Text>
             </View>
           </View>
 
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+
+
           <View style={styles.containerAula}>
+
             <View style={styles.borderAula}>
               <Text style={styles.aulaTitle}>Número da aula</Text>
             </View>
+
+            <View style={styles.viewInput}>
+              <TextInput
+                style={styles.inputNumber}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="Nº"
+                keyboardType="numeric"
+                maxLength={2}
+              />
+            </View>
+
           </View>
           
           <View style={styles.containerButton}>
@@ -83,13 +105,6 @@ export default function Início() {
 
           </View>
           
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
-
         </View>
 
       </Modal>
@@ -148,7 +163,7 @@ const styles = StyleSheet.create({
   //view da modal
   modalView: {
     alignItems: 'center',
-    height: 220,
+    height: 200,
     width: 365,
     marginTop: 0,
     marginHorizontal: -10,
@@ -175,10 +190,10 @@ const styles = StyleSheet.create({
    // borda da viwe date
    borderDate:{
     borderRadius: 5,
-    height: 41,
-    width: 346,
-    marginHorizontal: 2,
-    marginVertical: 2,
+    height: 43,
+    width: 347.5,
+    marginHorizontal: 1,
+    marginVertical: 1,
     backgroundColor: '#fff'
    },
    //titulo da seleção da data
@@ -208,13 +223,23 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: "#A5A5A5",
    },
+   viewInput: {
+    marginVertical: -37,
+    marginHorizontal: 300,
+    height: 45,
+    width: 350,
+   },
+   inputNumber: {
+    fontSize: 20
+    
+   },
    // borda da view aula
    borderAula:{
     borderRadius: 5,
-    height: 41,
-    width: 346,
-    marginHorizontal: 2,
-    marginVertical: 2,
+    height: 43,
+    width: 347.5,
+    marginHorizontal: 1,
+    marginVertical: 1,
     backgroundColor: '#fff'
    },
    //titulo da seleção da aula
@@ -226,6 +251,7 @@ const styles = StyleSheet.create({
    },
    // view do botão cadastrar
    containerButton: {
+    marginTop: -1,
     marginVertical: 12
    },
    // botão cadastrar
