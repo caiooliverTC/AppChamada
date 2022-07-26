@@ -6,7 +6,9 @@ import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 
 
 export default function Início() {
+  // constante de contagem do numero de aula
   const [number, onChangeNumber] = React.useState(null);
+
   // constante da modal
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -16,6 +18,8 @@ export default function Início() {
 
   // constante de exibição de data
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [text, setText] = useState('');
+  
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -26,8 +30,8 @@ export default function Início() {
   };
 
   const handleConfirm = (date) => {
-    alert(date);
-    
+    console.warn(date);
+    hideDatePicker();
   };
 
   // constante de selecão de data
@@ -76,7 +80,6 @@ export default function Início() {
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
           />
-
 
           <View style={styles.containerAula}>
 
