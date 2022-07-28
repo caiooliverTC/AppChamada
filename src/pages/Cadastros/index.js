@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
-import { Checkbox } from 'react-native-paper';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function Cadastro () {
 
@@ -10,19 +10,24 @@ export default function Cadastro () {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const [text, onChangeText] = React.useState(null);
-  const [text1, onChangeText1] = React.useState(null);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   // constante checkbox
-  const [checked, setChecked] = React.useState(false);
+  // masculino
+  const [isSelected, setSelection] = useState(false);
+  // Feminino
+  const [isSelectedF, setSelectionF] = useState(false);
+  // Professor
+  const [isSelectedP, setSelectionP] = useState(false);
+
 
   return(
     <View style={styles.container}>
 
-      <View style={styles.containerForm}>
+      <View>
         <Text style={styles.title}>Chamada</Text>
       </View>
 
@@ -37,65 +42,77 @@ export default function Cadastro () {
       </View>  
 
       <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
-
         <View style={styles.modalView}>
 
           <View style={styles.modalTitle}>
-            <Text style={styles.titleModal}>Inserir nova turma</Text>
-          </View>
-
-          <View style={styles.containerDate}>
-            <View style={styles.borderDate}>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={text}
-                placeholder="Nome"
-              />
-            </View>
-          </View>
-
-          <View style={styles.containerTurma}>
-            <View style={styles.borderTurma}>
-            <TextInput
-                style={styles.input}
-                onChangeText={onChangeText1}
-                value={text1}
-                placeholder="Turma"
-              />
-            </View>
+            <Text style={styles.titleModal}>Inserir novo cadastro</Text>
           </View>
           
-          <View style={styles.checkBox}>
-            <View style={styles.checkBoxMas}>
-              <Checkbox
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  setChecked(!checked);
-                }}
-              />
-            </View>
-            <View style={styles.checkBoxFem}>
-              <Checkbox
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  setChecked(!checked);
-                }}
-              />
-            </View>
+          <View style={styles.borderDate}>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder="Nome"
+              maxLength={20}  
+            />
+          </View>
+                  
+          <View style={styles.borderTurma}>
+            <TouchableOpacity>
+              <Text style={styles.buttonTurm}>Turma</Text>
+            </TouchableOpacity>
+          </View>
+          
+          
+          <View style={{marginEnd: 230}}>
+            <BouncyCheckbox
+              style={{ marginTop: 5}}
+              fillColor="#7159c1"
+              text="Masculino"
+              status={isSelected ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setSelection(!isSelected);
+              }}
+              
+            />
           </View>
 
+          <View style={{marginEnd: 0}}>
+            <BouncyCheckbox
+              style={{ marginTop: -25}}
+              fillColor="#7159c1"
+              text="Feminino"
+              onValueChange={setSelectionF}
+              status={isSelectedF ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setSelectionF(!isSelectedF);
+              }}
+            />
+          </View>
+          
+          <View style={{marginEnd: -230}}>
+            <BouncyCheckbox
+              style={{ marginTop: -25}}
+              fillColor="#7159c1"
+              text="Professor"
+              onValueChange={isSelectedP}
+              status={isSelectedF ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setSelectionP(!isSelectedP);
+              }}
+            />
+          </View>
 
           <View style={styles.containerButton}>
             <TouchableOpacity style={styles.buttonCadastrar}>
               <Text style={styles.cadastrarButton}>CADASTRAR</Text>
             </TouchableOpacity>
-
           </View> 
 
         </View>
-
       </Modal>
+      
     </View>
 
   );
@@ -136,7 +153,7 @@ const styles = StyleSheet.create({
   //view da modal
   modalView: {
     alignItems: 'center',
-    height: 250,
+    height: 230,
     width: 365,
     marginTop: 0,
     marginHorizontal: -10,
@@ -162,6 +179,8 @@ const styles = StyleSheet.create({
    },
    // borda da viwe date
    borderDate:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
     borderRadius: 5,
     height: 43,
     width: 347.5,
@@ -170,12 +189,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
    },
    //titulo da seleção da data
-   dateTitle:{
-    marginHorizontal: 20,
-    marginVertical: 8,
-    fontSize: 17,
-    color: '#A5A5A5'
-   },
    containerexibirDate:{
     height: 45,
     width: 350,
@@ -199,15 +212,23 @@ const styles = StyleSheet.create({
    input: {
     fontSize: 17,
     marginTop: 7,
+    marginHorizontal: 10,
+   },
+   buttonTurm: {
+    fontSize: 17,
+    color: "#A5A5A5",
+    marginTop: 7,
     marginHorizontal: 10
    },
    // borda da view aula
    borderTurma:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
     borderRadius: 5,
     height: 43,
     width: 347.5,
     marginHorizontal: 1,
-    marginVertical: 1,
+    marginVertical: 5,
     backgroundColor: '#fff'
    },
    //titulo da seleção da aula
@@ -217,22 +238,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#A5A5A5'
    },
-   // view do checkbox
-   checkBox: {
-   },
-   // view checkbox masculino
-   checkBoxMas: {
-    marginTop: 1,
-    marginHorizontal: 0,
-   },
-   checkBoxFem:{
-    marginTop: -34,
-    marginHorizontal: 165,
-
-   },
    // view do botão cadastrar
    containerButton: {
-    marginTop: 50,
+    marginTop: 10,
     marginVertical: 12
    },
    // botão cadastrar

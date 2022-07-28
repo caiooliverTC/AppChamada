@@ -65,15 +65,13 @@ export default function Início() {
             <Text style={styles.titleModal}>Inserir nova aula</Text>
           </View>
 
-          <View style={styles.containerDate}>
-            <View style={styles.borderDate}>
-              <Text style={styles.dateTitle}>Data da aula</Text>
-            </View>
-            <View style={styles.containerexibirDate}>
-              <Text style={styles.exibirDate} onPress={showDatePicker}>exibir</Text>
-            </View>
+          <View style={styles.borderDate}>
+            <Text style={styles.dateTitle}>Data da aula</Text>
           </View>
-
+          <View style={styles.containerexibirDate}>
+            <Text style={styles.exibirDate} onPress={showDatePicker}>exibir</Text>
+          </View>
+          
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
@@ -81,23 +79,19 @@ export default function Início() {
             onCancel={hideDatePicker}
           />
 
-          <View style={styles.containerAula}>
+          <View style={styles.borderAula}>
+            <Text style={styles.aulaTitle}>Número da aula</Text>
+          </View>
 
-            <View style={styles.borderAula}>
-              <Text style={styles.aulaTitle}>Número da aula</Text>
-            </View>
-
-            <View style={styles.viewInput}>
-              <TextInput
-                style={styles.inputNumber}
-                onChangeText={onChangeNumber}
-                value={number}
-                placeholder="Nº"
-                keyboardType="numeric"
-                maxLength={2}
-              />
-            </View>
-
+          <View style={styles.viewInput}>
+            <TextInput
+              style={styles.inputNumber}
+              onChangeText={onChangeNumber}
+              value={number}
+              placeholder="Nº"
+              keyboardType="numeric"
+              maxLength={2}
+            />
           </View>
           
           <View style={styles.containerButton}>
@@ -192,6 +186,8 @@ const styles = StyleSheet.create({
    },
    // borda da viwe date
    borderDate:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
     borderRadius: 5,
     height: 43,
     width: 347.5,
@@ -209,7 +205,7 @@ const styles = StyleSheet.create({
    containerexibirDate:{
     height: 45,
     width: 350,
-    marginHorizontal:100,
+    marginEnd:-250,
     marginVertical: -5
    },
    exibirDate: {
@@ -227,22 +223,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#A5A5A5",
    },
    viewInput: {
-    marginVertical: -37,
-    marginHorizontal: 300,
+    marginTop: -10,
+    marginEnd: -600,
     height: 45,
     width: 350,
    },
    inputNumber: {
     fontSize: 20
-    
    },
    // borda da view aula
    borderAula:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
     borderRadius: 5,
     height: 43,
     width: 347.5,
     marginHorizontal: 1,
-    marginVertical: 1,
+    marginVertical: -25,
     backgroundColor: '#fff'
    },
    //titulo da seleção da aula
@@ -254,7 +251,7 @@ const styles = StyleSheet.create({
    },
    // view do botão cadastrar
    containerButton: {
-    marginTop: -1,
+    marginTop: 0,
     marginVertical: 12
    },
    // botão cadastrar
