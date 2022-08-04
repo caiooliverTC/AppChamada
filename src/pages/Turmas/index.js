@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
+import RNPickerSelect from 'react-native-picker-select'
 
 export default function Início() {
   // constante da modal
@@ -54,13 +55,26 @@ export default function Início() {
               maxLength={20}
             />
           </View>
-          
-          <View style={styles.containerFax}>
-            <TouchableOpacity>
-              <Text style={styles.buttonTurm} onPress={toggleSubModal} >Faixa etária</Text>
-            </TouchableOpacity>
+
+          <View style={styles.borderSelect}>
+            <RNPickerSelect
+              placeholder ={{ label : "Faixa etária" , value : null }} 
+              onValueChange = {(value) => console.log(value)} 
+                items = { [ 
+                  {  label : 'Berçário' ,  value : 'bercario'  } , 
+                  {  label : 'Maternal' ,  value : 'maternal'  } , 
+                  {  label : 'Jardim de Infância' ,  value : 'jardim de infancia'  } ,
+                  {  label : 'Primários' ,  value : 'primarios'  } ,
+                  {  label : 'Juniores' ,  value : 'juniores'  } ,
+                  {  label : 'Pré Adolescentes' ,  value : 'pré adolescentes'  } ,
+                  {  label : 'Juvenis' ,  value : 'juvenis'  } ,
+                  {  label : 'Jovens' ,  value : 'jovens'  } ,
+                  {  label : 'Adultos' ,  value : 'adultos'  } ,
+                  {  label : 'Coordenação' ,  value : 'coordenacao'  } ,
+                ]} 
+              style={pickerSelectStyles}
+            />
           </View>
-         
           
           <View style={styles.containerButton}>
             <TouchableOpacity style={styles.buttonCadastrar} >
@@ -71,83 +85,25 @@ export default function Início() {
         </View>
 
       </Modal>
-
-      <Modal isVisible={isSubModalVisible} onBackdropPress={() => setSubModalVisible(false)}>
-        <View style={styles.Submodal}>
           
-          <Text style={styles.titleFax}>Faixa etária</Text>
-
-          <View style={styles.select}>
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Berçário</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Maternal</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Jardim de Infância</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Primários</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Juniores</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Pré Adolescentes</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Juvenis</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Jovens</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Adultos</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.ButtonFax}>
-              <TouchableOpacity>
-                <Text style={styles.Fax} onPress={toggleSubModal}>Coordenação</Text>
-              </TouchableOpacity>
-            </View>
-
-          </View>
-
-
-        </View>
-      </Modal>
-      
     </View>
 
   );
 }
+
+const pickerSelectStyles = StyleSheet.create({ 
+  inputAndroid: {
+    fontSize: 17,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    marginTop: -7,
+    borderWidth: 1,
+    borderColor: '#7159c1',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30
+  }
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -183,7 +139,7 @@ const styles = StyleSheet.create({
   //view da modal
   modalView: {
     alignItems: 'center',
-    height: 200,
+    height: 185,
     width: 365,
     marginTop: 0,
     marginHorizontal: -10,
@@ -216,6 +172,16 @@ const styles = StyleSheet.create({
     width: 347.5,
     marginHorizontal: 1,
     marginTop: -5,
+    backgroundColor: '#fff'
+   },
+   borderSelect: {
+    borderWidth: 1,
+    borderColor: '#7159c1',
+    borderRadius: 5,
+    height: 43,
+    width: 347.5,
+    marginHorizontal: 1,
+    marginTop: 5,
     backgroundColor: '#fff'
    },
    //titulo da seleção da data

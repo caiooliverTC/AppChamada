@@ -18,9 +18,7 @@ export default function Início() {
 
   // constante de exibição de data
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [text, setText] = useState('');
   
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -66,17 +64,21 @@ export default function Início() {
           </View>
 
           <View style={styles.borderDate}>
-            <Text style={styles.dateTitle}>Data da aula</Text>
+            <Text style={styles.dateTitle} onPress={showDatePicker}>Data da aula</Text>
           </View>
           <View style={styles.containerexibirDate}>
-            <Text style={styles.exibirDate} onPress={showDatePicker}>exibir</Text>
+            <Text style={styles.exibirDate}>'-'</Text>
           </View>
           
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
+            value={new Date()}
+            dateFormat="dayofweek day month"
+            onChange={this.handleConfirm}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            backgroundColor="#7159c1"
           />
 
           <View style={styles.borderAula}>

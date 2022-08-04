@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import RNPickerSelect from 'react-native-picker-select'
 
 export default function Cadastro () {
 
@@ -14,14 +15,6 @@ export default function Cadastro () {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  // constante checkbox
-  // masculino
-  const [isSelected, setSelection] = useState(false);
-  // Feminino
-  const [isSelectedF, setSelectionF] = useState(false);
-  // Professor
-  const [isSelectedP, setSelectionP] = useState(false);
 
 
   return(
@@ -57,51 +50,41 @@ export default function Cadastro () {
               maxLength={20}  
             />
           </View>
-                  
-          <View style={styles.borderTurma}>
-            <TouchableOpacity>
-              <Text style={styles.buttonTurm}>Turma</Text>
-            </TouchableOpacity>
+          
+          <View style={styles.borderSelect}>
+            <RNPickerSelect
+              
+              placeholder ={{ label : "Turma" , value : null }}
+              onValueChange = { ( value )  =>  console.log ( value ) } 
+              items = { [ 
+                {  label : 'Masculino' ,  value : 'masculino'  }
+              ]} 
+              style={pickerSelectStyles}
+            /> 
           </View>
           
-          
-          <View style={{marginEnd: 230}}>
-            <BouncyCheckbox
-              style={{ marginTop: 5}}
-              fillColor="#7159c1"
-              text="Masculino"
-              status={isSelected ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setSelection(!isSelected);
-              }}
-              
-            />
+          <View style={styles.borderSelectSX}>
+            <RNPickerSelect
+              placeholder ={{ label : "Sexo" , value : null }}
+              onValueChange = { ( value )  =>  console . log ( value ) } 
+              items = { [ 
+                {  label : 'Masculino' ,  value : 'masculino'  }, 
+                {  label : 'Feminino' ,  value : 'feminino'  }, 
+              ]} 
+              style={pickerSelectStyles}
+            /> 
           </View>
 
-          <View style={{marginEnd: 0}}>
-            <BouncyCheckbox
-              style={{ marginTop: -25}}
-              fillColor="#7159c1"
-              text="Feminino"
-              onValueChange={setSelectionF}
-              status={isSelectedF ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setSelectionF(!isSelectedF);
-              }}
-            />
-          </View>
-          
-          <View style={{marginEnd: -230}}>
-            <BouncyCheckbox
-              style={{ marginTop: -25}}
-              fillColor="#7159c1"
-              text="Professor"
-              onValueChange={isSelectedP}
-              status={isSelectedF ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setSelectionP(!isSelectedP);
-              }}
-            />
+          <View style={styles.borderSelectTP}>
+            <RNPickerSelect
+              placeholder ={{ label : "Tipo" , value : null }}
+              onValueChange = { ( value )  =>  console . log ( value ) } 
+              items={[ 
+                {  label : 'Aluno' ,  value : 'aluno'  }, 
+                {  label : 'Professor' ,  value : 'professor'  }, 
+              ]} 
+              style={pickerSelectStyles}
+            /> 
           </View>
 
           <View style={styles.containerButton}>
@@ -118,6 +101,11 @@ export default function Cadastro () {
   );
 }
 
+const pickerSelectStyles = StyleSheet.create({ 
+  inputAndroid: {
+    marginTop: -5,
+  }
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -153,7 +141,7 @@ const styles = StyleSheet.create({
   //view da modal
   modalView: {
     alignItems: 'center',
-    height: 230,
+    height: 250,
     width: 365,
     marginTop: 0,
     marginHorizontal: -10,
@@ -176,6 +164,36 @@ const styles = StyleSheet.create({
     height: 45,
     width: 350,
     backgroundColor: "#A5A5A5",
+   },
+   borderSelect: {
+    borderWidth: 1,
+    borderColor: '#7159c1',
+    borderRadius: 5,
+    height: 43,
+    width: 347.5,
+    marginHorizontal: 1,
+    marginVertical: 1,
+    backgroundColor: '#fff'
+   },
+   borderSelectSX:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
+    borderRadius: 5,
+    height: 43,
+    width: 150,
+    marginHorizontal: 1,
+    marginVertical: 1,
+    backgroundColor: '#fff'
+   },
+   borderSelectTP:{
+    borderWidth: 1,
+    borderColor: '#7159c1',
+    borderRadius: 5,
+    height: 43,
+    width: 150,
+    marginHorizontal: 1,
+    marginVertical: 1,
+    backgroundColor: '#fff'
    },
    // borda da viwe date
    borderDate:{
@@ -202,23 +220,10 @@ const styles = StyleSheet.create({
     color: '#000'
    },
    // view selecão da Turma
-   containerTurma:{
-    borderRadius: 5,
-    marginVertical: 9,
-    height: 45,
-    width: 350,
-    backgroundColor: "#A5A5A5",
-   },
    input: {
     fontSize: 17,
     marginTop: 7,
     marginHorizontal: 10,
-   },
-   buttonTurm: {
-    fontSize: 17,
-    color: "#A5A5A5",
-    marginTop: 7,
-    marginHorizontal: 10
    },
    // borda da view aula
    borderTurma:{
@@ -227,16 +232,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 43,
     width: 347.5,
-    marginHorizontal: 1,
     marginVertical: 5,
     backgroundColor: '#fff'
    },
-   //titulo da seleção da aula
-   aulaTitle:{
-    marginHorizontal: 20,
-    marginVertical: 8,
-    fontSize: 17,
-    color: '#A5A5A5'
+   selectPk: {
+    
    },
    // view do botão cadastrar
    containerButton: {
